@@ -2,7 +2,7 @@ import "io"
 
 export
 {
-  quicksort
+  quicksort,mergesort
 }
 
 let swap(array, index1, index2) be
@@ -12,6 +12,9 @@ let swap(array, index1, index2) be
   array ! index1 := array ! index2;
   array ! index2 := temp;
 }
+
+//---------------------------------------------
+//----------QUICKSORT START--------------------
 
 //partition function for quicksort
 let partition(array, nLeft, nRight) be
@@ -55,3 +58,69 @@ let qsort(array, nLeft, nRight) be
 //helper function for quicksort
 let quicksort(array, nSize) be
 {qsort(array, 0, nSize-1);}
+
+//----------------------------------------------
+//---------QUICKSORT END------------------------
+
+//----------------------------------------------
+//---------MERGESORT START----------------------
+
+let merge(array, nLeft, nLeftEnd, nRightEnd) be
+{
+  let temp = newvec(nRightEnd);
+  let leftinc = nLeft, rightinc = nLeftEnd+1, tempinc = nLeft, i;
+  while(leftinc <= nLeftEnd /\ rightinc <= nRightEnd) do
+  {
+    test array ! leftinc <= array ! rightinc then
+    {
+      temp ! tempinc := array ! leftinc;
+      leftinc +:= 1;
+    }
+    else
+    {
+      temp ! tempinc := array ! rightinc;
+      rightinc +:= 1;
+    }
+    tempinc +:= 1;
+  } 
+  
+  test leftinc > nleftEnd then
+  {
+    for i = rightinc to nRightEnd do
+    {
+      temp ! tempinc := array ! i;
+      tempinc +:= 1;
+    }
+  }
+  else
+  {
+    for i = leftinc to nLeftEnd do
+    {
+      temp ! tempinc := array ! i;
+      tempinc +:= 1;      
+    }
+  }
+  for i = nLeft to nRightEnd do
+  {
+    array ! i := temp ! i;
+  }
+}
+
+let msort(array, nLeft, nRight) be
+{
+  let nMid;
+
+  if nLeft < nRight then
+  {
+    nMid := (nRight + nLeft)/2;
+    msort(array, nLeft, nMid);
+    msort(array, nMid+1, nRight);
+    merge(array, nLeft, nMid, nRight);
+  }  
+}
+
+let mergesort(array, nSize) be
+{msort(array,0,nSize-1);}
+
+//--------------------------------------
+//--------MERGESORT END-----------------
