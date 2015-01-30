@@ -2,7 +2,7 @@ import "io"
 
 export
 {
-  quicksort,mergesort
+  quicksort,mergesort,binarychop
 }
 
 let swap(array, index1, index2) be
@@ -124,3 +124,27 @@ let mergesort(array, nSize) be
 
 //--------------------------------------
 //--------MERGESORT END-----------------
+
+//--------------------------------------
+//------BINARY CHOP SEARCH START--------
+
+let binarychop(array, nSize, mSearch) be
+{
+  let nMid = 0, nIndex = 0, nEnd = nSize;
+
+  while nIndex < nEnd do 
+  {
+    nMid := (nIndex + nEnd)/2;
+    if array ! nMid = mSearch then
+    {resultis nMid;}
+    test array ! nMid > mSearch then
+    {nEnd := nMid;}
+    else
+    {nIndex := nMid + 1;}
+  }
+  out("\nITEM NOT FOUND\n");
+  resultis -1;
+}
+
+//---------------------------------------
+//-------BINARY CHOP SEARCH END----------
