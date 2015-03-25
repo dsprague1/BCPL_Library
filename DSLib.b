@@ -2,8 +2,10 @@ import "io"
 
 export
 {
-  quicksort,mergesort,binarychop,reverse_list,add_link,remove_link,remove_list_pos,print_list,DEL_list,new_list,new_link,
-  tree_from_list,tree_print,add_to_tree,new_node
+  quicksort,mergesort,binarychop,reverse_list,
+  add_link,remove_link,remove_list_pos,print_list,
+  DEL_list,new_list,new_link,tree_from_list,tree_print,
+  add_to_tree,new_node,instr
 }
 
 manifest
@@ -411,3 +413,40 @@ let tree_from_list(pList) be
 
 //-------------------------------------
 //-------BINARY TREE END---------------
+
+//--------IO FUNCTIONS BEGIN-----------
+//-------------------------------------
+
+//String input function, similar to
+//gets but checking for stack smash
+//exploit. Expects vector and size
+//of vector as parameters.
+let getstr(sIn, nLen) be
+{
+  let len = 0;
+  while true do
+  {
+    let c = inch();
+    if len >= nLen then
+      break;
+    if c = '\n' then
+      break;
+    byte len of sIn := c;
+    len +:= 1;
+  }
+  byte len of sIn := 0;
+  resultis sIn;
+}
+
+//user interface and generate 
+//vec for string to be held in
+let instr() be
+{
+  let line = vec 256;
+  getstr(line);
+  if byte 0 of line = '*' then resultis false;
+  resultis line;
+}
+
+//-------------------------------------
+//---------IO FUNCTIONS END------------
