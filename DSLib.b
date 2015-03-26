@@ -443,7 +443,7 @@ let getstr(sIn, nLen) be
 let instr() be
 {
   let line = vec 256;
-  getstr(line);
+  getstr(line, 256);
   if byte 0 of line = '*' then resultis false;
   resultis line;
 }
